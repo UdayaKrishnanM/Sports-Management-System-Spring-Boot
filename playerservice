@@ -1,0 +1,296 @@
+package com.sportsmanagement.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.sportsmanagement.model.Player;
+import com.sportsmanagement.service.PlayerService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/players")
+public class PlayerController {
+
+    @Autowired
+    private PlayerService playerService;
+
+    //working
+    @PostMapping("/add")
+    public ResponseEntity<Player> addPlayer(@RequestBody Player player) {
+        Player newPlayer = playerService.addPlayer(player);
+        return new ResponseEntity<>(newPlayer, HttpStatus.CREATED);
+    }
+
+    
+    //working
+    @PostMapping("/addAll")
+    public ResponseEntity<List<Player>> addPlayers(@RequestBody List<Player> players) {
+        List<Player> newPlayers = playerService.addPlayers(players);
+        return new ResponseEntity<>(newPlayers, HttpStatus.CREATED);
+    }
+
+    
+    //working
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deletePlayer(@PathVariable("id") int id) {
+        playerService.deletePlayer(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //working
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Player>> getAllPlayers() {
+        List<Player> players = playerService.getAllPlayers();
+        return new ResponseEntity<>(players, HttpStatus.OK);
+    }
+
+    //working
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<Player> getPlayerById(@PathVariable("id") int id) {
+        Player player = playerService.getPlayerById(id);
+        return new ResponseEntity<>(player, player != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
+
+//    @GetMapping("/getTopODIPlayers")
+//    public ResponseEntity<List<Player>> getTopPlayersFromODIRank() {
+//        List<Player> topPlayers = playerService.getTopPlayers();
+//        return new ResponseEntity<>(topPlayers, HttpStatus.OK);
+//    }
+
+    
+    //working
+    @PutMapping("/updateDepartment/{id}")
+    public ResponseEntity<Player> updatePlayerDepartment(@PathVariable("id") int id, @RequestBody String department) {
+        Player updatedPlayer = playerService.updatePlayerDepartment(id, department);
+        return new ResponseEntity<>(updatedPlayer, updatedPlayer != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
+
+    
+    // working
+    @PutMapping("/updateAge/{id}")
+    public ResponseEntity<Player> updatePlayerAge(@PathVariable("id") int id, @RequestBody int age) {
+        Player updatedPlayer = playerService.updatePlayerAge(id, age);
+        return new ResponseEntity<>(updatedPlayer, updatedPlayer != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
+    
+    //old and not working
+//    @PutMapping("/updateAge/{id}")
+//    public ResponseEntity<Player> updatePlayerAge(@PathVariable("id") int id, @RequestParam("age") int age) {
+//        Player updatedPlayer = playerService.updatePlayerAge(id, age);
+//        return new ResponseEntity<>(updatedPlayer, updatedPlayer != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+//    }
+    
+}
+
+
+
+
+
+
+//	@Autowired
+//    private final PlayerService playerService;
+//
+//    public PlayerController(PlayerService playerService) {
+//        this.playerService = playerService;
+//    }
+//
+//    @GetMapping("/list")
+//    public String listPlayers(Model model) {
+//        List<Player> players = playerService.getAllPlayers();
+//        model.addAttribute("players", players);
+//        return "player/list";
+//    }
+//
+//    @GetMapping("/add")
+//    public String showAddPlayerForm(Model model) {
+//        model.addAttribute("player", new Player());
+//        return "player/form";
+//    }
+//
+//    @PostMapping("/add")
+//    public String addPlayer(@Valid @ModelAttribute("player") Player player, BindingResult result) {
+//        if (result.hasErrors()) {
+//            return "player/form";
+//        }
+//        playerService.addPlayer(player);
+//        return "redirect:/players/list";
+//    }
+//
+//    @GetMapping("/update/{id}")
+//    public String showUpdatePlayerForm(@PathVariable("id") int id, Model model) {
+//        Player player = playerService.getPlayerById(id);
+//        model.addAttribute("player", player);
+//        return "player/form";
+//    }
+//
+//    @PostMapping("/update/{id}")
+//    public String updatePlayer(@PathVariable("id") int id, @Valid @ModelAttribute("player") Player player, BindingResult result) {
+//        if (result.hasErrors()) {
+//            return "player/form";
+//        }
+//        playerService.updatePlayer(player);
+//        return "redirect:/players/list";
+//    }
+//
+//    @GetMapping("/delete/{id}")
+//    public String deletePlayer(@PathVariable("id") int id) {
+//        playerService.deletePlayer(id);
+//        return "redirect:/players/list";
+//    }
+
+
+>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+package com.sportsmanagement.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import com.sportsmanagement.model.Player;
+import com.sportsmanagement.service.PlayerService;
+
+import java.util.List;
+
+@Controller
+public class PlayerController {
+
+    @Autowired
+    private PlayerService playerService;
+
+    public PlayerController(PlayerService playerService) {
+    	super();
+    	this.playerService = playerService;
+    }
+    
+    
+    //working
+    @RequestMapping(value = "/players/add", method= RequestMethod.POST)
+    public ResponseEntity<Player> addPlayer(@RequestBody Player player) {
+        Player newPlayer = playerService.addPlayer(player);
+        return new ResponseEntity<>(newPlayer, HttpStatus.CREATED);
+    }
+
+    
+    //working
+    @RequestMapping(value = "/players/addAll", method= RequestMethod.POST)
+    public ResponseEntity<List<Player>> addPlayers(@RequestBody List<Player> players) {
+        List<Player> newPlayers = playerService.addPlayers(players);
+        return new ResponseEntity<>(newPlayers, HttpStatus.CREATED);
+    }
+
+    
+    //working
+    @RequestMapping(value = "/players/delete/{id}", method= RequestMethod.DELETE)
+    public ResponseEntity<?> deletePlayer(@PathVariable("id") int id) {
+        playerService.deletePlayer(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //working
+    @RequestMapping(value = "/players/getAll", method= RequestMethod.GET)
+    public ResponseEntity<List<Player>> getAllPlayers() {
+        List<Player> players = playerService.getAllPlayers();
+        return new ResponseEntity<>(players, HttpStatus.OK);
+    }
+
+    //working
+    @RequestMapping(value = "/players/getById/{id}", method= RequestMethod.GET)
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<Player> getPlayerById(@PathVariable("id") int id) {
+        Player player = playerService.getPlayerById(id);
+        return new ResponseEntity<>(player, player != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
+
+//    @GetMapping("/getTopODIPlayers")
+//    public ResponseEntity<List<Player>> getTopPlayersFromODIRank() {
+//        List<Player> topPlayers = playerService.getTopPlayers();
+//        return new ResponseEntity<>(topPlayers, HttpStatus.OK);
+//    }
+
+    
+    //working
+    @RequestMapping(value = "/players/updateDepartment/{id}", method= RequestMethod.PUT)
+    public ResponseEntity<Player> updatePlayerDepartment(@PathVariable("id") int id, @RequestBody String department) {
+        Player updatedPlayer = playerService.updatePlayerDepartment(id, department);
+        return new ResponseEntity<>(updatedPlayer, updatedPlayer != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
+
+    
+    // working
+    @RequestMapping(value = "/players/updateAge/{id}", method= RequestMethod.PUT)
+    public ResponseEntity<Player> updatePlayerAge(@PathVariable("id") int id, @RequestBody int age) {
+        Player updatedPlayer = playerService.updatePlayerAge(id, age);
+        return new ResponseEntity<>(updatedPlayer, updatedPlayer != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
+    
+    //old and not working
+//    @PutMapping("/updateAge/{id}")
+//    public ResponseEntity<Player> updatePlayerAge(@PathVariable("id") int id, @RequestParam("age") int age) {
+//        Player updatedPlayer = playerService.updatePlayerAge(id, age);
+//        return new ResponseEntity<>(updatedPlayer, updatedPlayer != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+//    }
+    
+}
+
+
+
+
+
+
+//	@Autowired
+//    private final PlayerService playerService;
+//
+//    public PlayerController(PlayerService playerService) {
+//        this.playerService = playerService;
+//    }
+//
+//    @GetMapping("/list")
+//    public String listPlayers(Model model) {
+//        List<Player> players = playerService.getAllPlayers();
+//        model.addAttribute("players", players);
+//        return "player/list";
+//    }
+//
+//    @GetMapping("/add")
+//    public String showAddPlayerForm(Model model) {
+//        model.addAttribute("player", new Player());
+//        return "player/form";
+//    }
+//
+//    @PostMapping("/add")
+//    public String addPlayer(@Valid @ModelAttribute("player") Player player, BindingResult result) {
+//        if (result.hasErrors()) {
+//            return "player/form";
+//        }
+//        playerService.addPlayer(player);
+//        return "redirect:/players/list";
+//    }
+//
+//    @GetMapping("/update/{id}")
+//    public String showUpdatePlayerForm(@PathVariable("id") int id, Model model) {
+//        Player player = playerService.getPlayerById(id);
+//        model.addAttribute("player", player);
+//        return "player/form";
+//    }
+//
+//    @PostMapping("/update/{id}")
+//    public String updatePlayer(@PathVariable("id") int id, @Valid @ModelAttribute("player") Player player, BindingResult result) {
+//        if (result.hasErrors()) {
+//            return "player/form";
+//        }
+//        playerService.updatePlayer(player);
+//        return "redirect:/players/list";
+//    }
+//
+//    @GetMapping("/delete/{id}")
+//    public String deletePlayer(@PathVariable("id") int id) {
+//        playerService.deletePlayer(id);
+//        return "redirect:/players/list";
+//    }
+

@@ -1,0 +1,278 @@
+[
+    {
+        "id": 1,
+        "name": "KL Rahul",
+        "age": 31,
+        "department": "Batsmen",
+        "ranks": {
+            "id": 1,
+            "t20_rank": 4,
+            "odi_rank": 4,
+            "test_rank": 6
+        }
+    },
+    {
+        "id": 2,
+        "name": "Arshdeep Singh",
+        "age": 25,
+        "department": "Bowler",
+        "ranks": {
+            "id": 2,
+            "t20_rank": 23,
+            "odi_rank": 22,
+            "test_rank": 23
+        }
+    },
+    {
+        "id": 3,
+        "name": "Yuzvendra Chahal",
+        "age": 33,
+        "department": "Bowler",
+        "ranks": {
+            "id": 3,
+            "t20_rank": 19,
+            "odi_rank": 20,
+            "test_rank": 22
+        }
+    },
+    {
+        "id": 5,
+        "name": "Washington Sundar",
+        "age": 24,
+        "department": "Bowler",
+        "ranks": {
+            "id": 5,
+            "t20_rank": 22,
+            "odi_rank": 28,
+            "test_rank": 20
+        }
+    },
+    {
+        "id": 8,
+        "name": "Ravindra Jadeja",
+        "age": 35,
+        "department": "Allrounder",
+        "ranks": {
+            "id": 8,
+            "t20_rank": 14,
+            "odi_rank": 14,
+            "test_rank": 14
+        }
+    },
+    {
+        "id": 11,
+        "name": "Mohammed Shami",
+        "age": 29,
+        "department": "Bowler",
+        "ranks": {
+            "id": 11,
+            "t20_rank": 16,
+            "odi_rank": 16,
+            "test_rank": 19
+        }
+    },
+    {
+        "id": 13,
+        "name": "Mohammed Siraj",
+        "age": 29,
+        "department": "Bowler",
+        "ranks": {
+            "id": 13,
+            "t20_rank": 17,
+            "odi_rank": 17,
+            "test_rank": 17
+        }
+    },
+    {
+        "id": 14,
+        "name": "Srikar Bharat",
+        "age": 30,
+        "department": "Batsmen",
+        "ranks": {
+            "id": 14,
+            "t20_rank": 9,
+            "odi_rank": 9,
+            "test_rank": 5
+        }
+    },
+    {
+        "id": 17,
+        "name": "Rishabh Pant",
+        "age": 17,
+        "department": "Wicketkeeper",
+        "ranks": {
+            "id": 17,
+            "t20_rank": 11,
+            "odi_rank": 11,
+            "test_rank": 11
+        }
+    },
+    {
+        "id": 18,
+        "name": "Virat Kohli",
+        "age": 35,
+        "department": "Batsmen",
+        "ranks": {
+            "id": 18,
+            "t20_rank": 3,
+            "odi_rank": 3,
+            "test_rank": 3
+        }
+    },
+    {
+        "id": 19,
+        "name": "Umesh Yadav",
+        "age": 36,
+        "department": "Bowler",
+        "ranks": {
+            "id": 19,
+            "t20_rank": 21,
+            "odi_rank": 21,
+            "test_rank": 16
+        }
+    },
+    {
+        "id": 23,
+        "name": "Kuldeep Yadav",
+        "age": 32,
+        "department": "Bowler",
+        "ranks": {
+            "id": 23,
+            "t20_rank": 20,
+            "odi_rank": 19,
+            "test_rank": 21
+        }
+    },
+    {
+        "id": 25,
+        "name": "Cheteshwar Pujara",
+        "age": 36,
+        "department": "Batsmen",
+        "ranks": {
+            "id": 25,
+            "t20_rank": 10,
+            "odi_rank": 10,
+            "test_rank": 4
+        }
+    },
+    {
+        "id": 32,
+        "name": "Ishan Kishan",
+        "age": 25,
+        "department": "Wicketkeeper",
+        "ranks": {
+            "id": 32,
+            "t20_rank": 12,
+            "odi_rank": 12,
+            "test_rank": 12
+        }
+    },
+    {
+        "id": 33,
+        "name": "Hardik Pandya",
+        "age": 30,
+        "department": "Allrounder",
+        "ranks": {
+            "id": 33,
+            "t20_rank": 13,
+            "odi_rank": 13,
+            "test_rank": 15
+        }
+    },
+    {
+        "id": 41,
+        "name": "Shreyas Iyer",
+        "age": 29,
+        "department": "Batsmen",
+        "ranks": {
+            "id": 41,
+            "t20_rank": 6,
+            "odi_rank": 5,
+            "test_rank": 7
+        }
+    },
+    {
+        "id": 42,
+        "name": "Shikhar Dhawan",
+        "age": 38,
+        "department": "Batsmen",
+        "ranks": {
+            "id": 42,
+            "t20_rank": 7,
+            "odi_rank": 7,
+            "test_rank": 10
+        }
+    },
+    {
+        "id": 45,
+        "name": "Rohit Sharma",
+        "age": 36,
+        "department": "Batsmen",
+        "ranks": {
+            "id": 45,
+            "t20_rank": 1,
+            "odi_rank": 1,
+            "test_rank": 1
+        }
+    },
+    {
+        "id": 54,
+        "name": "Shardul Thakur",
+        "age": 32,
+        "department": "Batsmen",
+        "ranks": {
+            "id": 54,
+            "t20_rank": 8,
+            "odi_rank": 8,
+            "test_rank": 8
+        }
+    },
+    {
+        "id": 63,
+        "name": "Suryakumar Yadav",
+        "age": 33,
+        "department": "Batsmen",
+        "ranks": {
+            "id": 63,
+            "t20_rank": 5,
+            "odi_rank": 6,
+            "test_rank": 9
+        }
+    },
+    {
+        "id": 77,
+        "name": "Shubman Gill",
+        "age": 24,
+        "department": "Batsmen",
+        "ranks": {
+            "id": 77,
+            "t20_rank": 2,
+            "odi_rank": 2,
+            "test_rank": 2
+        }
+    },
+    {
+        "id": 93,
+        "name": "Jasprit Bumrah",
+        "age": 30,
+        "department": "Bowler",
+        "ranks": {
+            "id": 93,
+            "t20_rank": 18,
+            "odi_rank": 18,
+            "test_rank": 18
+        }
+    },
+    {
+        "id": 99,
+        "name": "Ravichandran Ashwin",
+        "age": 37,
+        "department": "Allrounder",
+        "ranks": {
+            "id": 99,
+            "t20_rank": 15,
+            "odi_rank": 15,
+            "test_rank": 13
+        }
+    }
+]
