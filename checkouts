@@ -1,0 +1,14 @@
+addPlayer
+listPlayer
+updatePlayer
+deletePlayer
+topPlayers
+
+
+while adding check for correct inputs like id already exists, name in characters, age between 25 to 45, rank already exists.
+
+update player ask for what to update and check whether given id is in DB if no update else throw id not found.
+
+deletePlayer check whether id is available.
+
+in addplayer page when a user enter enters a wrong details it shows some error by the time all the entered data is removed

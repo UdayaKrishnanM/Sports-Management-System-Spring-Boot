@@ -9,10 +9,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sportsmanagement.dao.PlayerRepository;
 import com.sportsmanagement.model.Player;
+import com.sportsmanagement.model.Ranks;
 import com.sportsmanagement.service.PlayerService;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/players")
@@ -20,6 +25,9 @@ public class PlayerController {
 
     @Autowired
     private PlayerService playerService;
+    
+    @Autowired
+    private PlayerRepository playerRepository;
 
     public PlayerController(PlayerService playerService) {
     	super();
@@ -36,36 +44,57 @@ public class PlayerController {
     }
     
 
-    // below done
+//below is working perfectly
     @GetMapping("/addPlayer")
     public String showAddPlayerForm() {
     	return "addPlayer";
     }
-    
+
     @PostMapping("/addPlayer")
-    public String addPlayer(Player player) {
-        playerService.addPlayer(player);
-        return "redirect:/players/";
+    public String addPlayer(@ModelAttribute Player player, Model model) {
+    	
+    	if(!player.getName().matches("[a-zA-Z]+")) {
+    		model.addAttribute("error", "Name must contain only letters");
+        	return "addPlayer";
+    	} else if(player.getAge()<20 || player.getAge()>45) {
+    		model.addAttribute("error", "Age must be between 20 and 45");
+        	return "addPlayer";
+    	} else if(playerRepository.existsById(player.getId())) {
+    		model.addAttribute("error", "ID already exists");
+        	return "addPlayer";
+    	} else if(playerRepository.existsById(player.getRanks().getT20_rank())) {
+    		model.addAttribute("error", "T20 rank already exists");
+    		return "addPlayer";
+    	} else if(playerRepository.existsById(player.getRanks().getOdi_rank())) {
+    		model.addAttribute("error", "ODI rank already exists");
+    		return "addPlayer";
+    	} else if(playerRepository.existsById(player.getRanks().getTest_rank())) {
+    		model.addAttribute("error", "TEST rank already exists");
+    		return "addPlayer";
+    	}
+    	else {
+			Ranks ranks = new Ranks();
+		    ranks.setT20_rank(player.getRanks().getT20_rank());
+		    ranks.setOdi_rank(player.getRanks().getOdi_rank());
+		    ranks.setTest_rank(player.getRanks().getTest_rank());
+		    player.setRanks(ranks);
+			playerService.addPlayer(player);
+		    return "redirect:/players/";
+    	}
+    }
+
+    @PostMapping("/checkIdExists/{id}")
+    @ResponseBody
+    public boolean checkIdExists(@RequestParam int id) {
+    	
+    	boolean idExists = playerService.checkIdExists(id);
+    	
+    	return idExists;
     }
     
-    //above done
-
-    
-    // get and put for add All Players
+// above is working perfectly
     
     
-    
-    
-    // list all players
-
-//	working
-//    @GetMapping("/showPlayers")
-//    public String showPlayers(Model model) {
-//      List<Player> players = playerService.getAllPlayers();
-//      model.addAttribute("players", players);
-//    	return "showPlayers";
-//    }
-
     @GetMapping("/listPlayers")
     public ModelAndView listPlayers() {
     	ModelAndView mv = new ModelAndView();
@@ -74,15 +103,7 @@ public class PlayerController {
     	mv.setViewName("listPlayers");
     	return mv;
     }
-//    public String listPlayers(Model model) {
-//        List<Player> players = playerService.getAllPlayers();
-//        model.addAttribute("players", players);
-//        return "listPlayers";
-//    }
-    
-    
-    // list all players
-    
+
     
     
     //working
@@ -94,26 +115,25 @@ public class PlayerController {
 
     
     
-    
-    
-    
-    
-    
-    
-    
+    //below DELETE WORKING
     @GetMapping("/deletePlayer")
     public String showDeletePlayerForm() {
         return "deletePlayer";
     }
 
     @PostMapping("/deletePlayer")
-    public String deletePlayer(@RequestParam int id) {
-        playerService.deletePlayer(id);
-        return "redirect:/players/";
+    public String deletePlayer(@RequestParam("id") int id, Model model) {
+    	Optional<Player> opt = playerRepository.findById(id);
+    	if(opt.isPresent()) {
+    		playerService.deletePlayer(id);
+    		model.addAttribute("error", "Player with ID " + id +" deleted successfully");
+    	} else {
+    		model.addAttribute("error", "Player with ID " + id + " not found");
+    	}
+    	return "deletePlayer";
     }
-
-
-
+    //above code DELETE WORKING
+    
 
     //working
     @GetMapping("/getById/{id}")
@@ -129,77 +149,33 @@ public class PlayerController {
     }
 
     
+    
+    //below Update Code working
     @GetMapping("/updatePlayer")
     public String showUpdatePlayerForm() {
         return "updatePlayer";
     }
 
     @PostMapping("/updatePlayer")
-    public String updatePlayer(@RequestParam int id, @RequestParam String type, @RequestParam String value) {
-        if ("age".equals(type)) {
-            playerService.updatePlayerAge(id, Integer.parseInt(value));
-        } else if ("department".equals(type)) {
-            playerService.updatePlayerDepartment(id, value);
+    public String updatePlayer(@RequestParam int id, @RequestParam String type, @RequestParam String value, Model model) {
+        if(!playerService.checkIdExists(id)) {
+        	model.addAttribute("message", "Player with ID " + id + " not found");
+        	return "updatePlayer";
         }
-        return "redirect:/players/";
+    	if ("age".equalsIgnoreCase(type)) {
+            playerService.updatePlayerAge(id, Integer.parseInt(value));
+            model.addAttribute("message", "Player with ID " + id + "'s age was updated");
+        	return "updatePlayer";
+    	} else if ("department".equalsIgnoreCase(type)) {
+    		playerService.updatePlayerDepartment(id, value);
+            model.addAttribute("message", "Player with ID " + id + "'s department was updated");
+        	return "updatePlayer";
+
+    	}
+        return "updatePlayer";
     }
     
+    //above Update code working
     
 }
-
-
-
-
-
-
-//	@Autowired
-//    private final PlayerService playerService;
-//
-//    public PlayerController(PlayerService playerService) {
-//        this.playerService = playerService;
-//    }
-//
-//    @GetMapping("/list")
-//    public String listPlayers(Model model) {
-//        List<Player> players = playerService.getAllPlayers();
-//        model.addAttribute("players", players);
-//        return "player/list";
-//    }
-//
-//    @GetMapping("/add")
-//    public String showAddPlayerForm(Model model) {
-//        model.addAttribute("player", new Player());
-//        return "player/form";
-//    }
-//
-//    @PostMapping("/add")
-//    public String addPlayer(@Valid @ModelAttribute("player") Player player, BindingResult result) {
-//        if (result.hasErrors()) {
-//            return "player/form";
-//        }
-//        playerService.addPlayer(player);
-//        return "redirect:/players/list";
-//    }
-//
-//    @GetMapping("/update/{id}")
-//    public String showUpdatePlayerForm(@PathVariable("id") int id, Model model) {
-//        Player player = playerService.getPlayerById(id);
-//        model.addAttribute("player", player);
-//        return "player/form";
-//    }
-//
-//    @PostMapping("/update/{id}")
-//    public String updatePlayer(@PathVariable("id") int id, @Valid @ModelAttribute("player") Player player, BindingResult result) {
-//        if (result.hasErrors()) {
-//            return "player/form";
-//        }
-//        playerService.updatePlayer(player);
-//        return "redirect:/players/list";
-//    }
-//
-//    @GetMapping("/delete/{id}")
-//    public String deletePlayer(@PathVariable("id") int id) {
-//        playerService.deletePlayer(id);
-//        return "redirect:/players/list";
-//    }
 

@@ -1,6 +1,10 @@
 package com.sportsmanagement.model;
 
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,9 +20,12 @@ public class Player {
 		private int id;
 	
 	  @Column(name = "player_name")
+	  @Pattern(regexp = "^[a-zA-Z]+$", message = "Name must contain only letters")
 	  private String name;
 	
 	  @Column(name = "player_age")
+	  @Min(value = 20, message = "Age must be atleast 20")
+	  @Max(value = 45, message = "Age must be atleast 45")
 	  private int age;
 	
 	  @Column(name = "player_department")
@@ -58,104 +65,3 @@ public class Player {
 	
 	
 }	
-
-
-//	working 
-//{
-//"id": 1,
-//"name": "Player Name",
-//"age": 25,
-//"department": "Player Department",
-//"ranks": {
-//"id":5,
-//"t20_rank": 41,
-//"odi_rank": 42,
-//"test_rank": 43
-//}
-//}
-
-//    @Id
-//    @PrimaryKeyJoinColumn
-//    @Column(name = "player_id")
-//    private int id;
-//
-//    @Column(name = "player_name")
-//    private String name;
-//
-//    @Column(name = "player_age")
-//    private int age;
-//
-//    @Column(name = "player_department")
-//    private String department;
-//
-//    @OneToOne(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private Ranks ranks;
-//
-//    public Player() {
-//    }
-//
-//    public Player(int id, String name, int age, String department, Ranks ranks) {
-//        this.id = id;
-//        this.name = name;
-//        this.age = age;
-//        this.department = department;
-//        this.ranks = ranks;
-//    }
-//
-//    // Getters and setters
-//    
-//
-//    @Override
-//    public String toString() {
-//        return "Player{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", age=" + age +
-//                ", department='" + department + '\'' +
-//                ", ranks=" + ranks +
-//                '}';
-//    }
-//
-//	public int getId() {
-//		return id;
-//	}
-//
-//	public void setId(int id) {
-//		this.id = id;
-//	}
-//
-//	public String getName() {
-//		return name;
-//	}
-//
-//	public void setName(String name) {
-//		this.name = name;
-//	}
-//
-//	public int getAge() {
-//		return age;
-//	}
-//
-//	public void setAge(int age) {
-//		this.age = age;
-//	}
-//
-//	public String getDepartment() {
-//		return department;
-//	}
-//
-//	public void setDepartment(String department) {
-//		this.department = department;
-//	}
-//
-//	public Ranks getRanks() {
-//		return ranks;
-//	}
-//
-//	public void setRanks(Ranks ranks) {
-//		this.ranks = ranks;
-//	}
-//}
-//
-//
-//

@@ -11,6 +11,7 @@ import com.sportsmanagement.model.Ranks;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,7 +25,6 @@ public class PlayerService {
 
     
     
-//	worked not now ?
     public Player addPlayer(Player player) {
         Ranks ranks = player.getRanks();
         if (ranks != null) {
@@ -53,12 +53,16 @@ public class PlayerService {
 //    	return playerRepository.saveAll(players);
     }
 
-    	
-    	
 
-    public String deletePlayer(int id) {
-        playerRepository.deleteById(id);
-        return "Player removed with id: " + id;
+    	
+    public boolean deletePlayer(int id) {
+    	boolean flag = true;
+    	if(playerRepository.findById(id) != null) {
+    		playerRepository.deleteById(id);
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
 
     public List<Player> getAllPlayers() {
@@ -108,6 +112,15 @@ public class PlayerService {
         }
         return null;
     }
+
+
+	public boolean checkIdExists(int id) {
+//		Optional<Player> player = playerRepository.findById(id);
+//		return player.isPresent();
+		
+//		or
+		return playerRepository.existsById(id);
+	}
 	
 }
 
